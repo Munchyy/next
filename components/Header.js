@@ -4,13 +4,9 @@ const linkStyle = {
   marginRight: 15,
   fontSize: 20,
 };
-const divStyle = {
-  backgroundColor: 'rgb(238, 197, 230)',
-  padding: 10,
-};
 
 const Header = () => (
-  <div style={divStyle}>
+  <div>
     <Link href="/">
       <a style={linkStyle}>Home</a>
     </Link>
