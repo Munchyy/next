@@ -1,32 +1,34 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import Layout from '../components/Layout';
 import '../css/style.css';
 
-const PostLink = ({ title, id }) => (
-  <li>
-    <Link as={`/p/${id}`} href={`post?title=${title}`}>
-      <a>{title}</a>
-    </Link>
-  </li>
+const Index = ({ shows }) => (
+  <Layout>
+    <div>
+      <h1>Batman TV Shows</h1>
+      <ul>
+        {shows.map(({ show }) => (
+          <li key={show.id}>
+            <Link as={`/p/${show.id}`} href={`/post?id=${show.id}`}>
+              <a>{show.name}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Layout>
 );
 
-PostLink.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+Index.getInitialProps = async () => {
+  const { data } = await axios.get('https://api.tvmaze.com/search/shows?q=batman');
+  console.log(`Show data fetched. Count: ${data.length}`);
+  return { shows: data };
 };
 
-export default () => (
-  <div>
-    <Layout>
-      <div>
-        <h1>My Blog</h1>
-        <ul>
-          <PostLink id="hello-nextjs" title="Hello Next.js" />
-          <PostLink id="learn-nextjs" title="Learn Next.js is great" />
-          <PostLink id="deploy-nextjs" title="Deploy apps with next" />
-        </ul>
-      </div>
-    </Layout>
-  </div>
-);
+Index.propTypes = {
+  shows: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default Index;

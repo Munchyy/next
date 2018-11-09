@@ -1,17 +1,30 @@
-import { withRouter } from 'next/router';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 
-const Content = withRouter(({ router }) => (
-  <div>
-    <h1>{router.query.title}</h1>
-    <p>This is the blog post content.</p>
-  </div>
-));
-
-const Page = () => (
+const Post = ({ show }) => (
   <Layout>
-    <Content />
+    <div>
+      <h1>{show.name}</h1>
+      <p>{show.summary.replace(/<[/]?p>/g, '')}</p>
+      <img src={show.image.medium} alt="movie poster" />
+    </div>
   </Layout>
 );
 
-export default Page;
+Post.getInitialProps = async (context) => {
+  const { id } = context.query;
+  const { data } = await axios.get(`https://api.tvmaze.com/shows/${id}`);
+  console.log(`Fetched show: ${data.name}`);
+  return { show: data };
+};
+
+Post.propTypes = {
+  show: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    image: PropTypes.object.isRequired,
+  }).isRequired,
+};
+
+export default Post;
