@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "name": "nextjs"
+  "name": "nextjs",
+  "builds": [
+    {
+      "use": "@now/next"
+    }
+  ]
 }
