@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 import '../css/style.css';
 
-const PostLink = ({ title }) => (
+const PostLink = ({ title, id }) => (
   <li>
-    <Link href={`post?title=${title}`}>
+    <Link as={`/p/${id}`} href={`post?title=${title}`}>
       <a>{title}</a>
     </Link>
   </li>
@@ -13,6 +13,7 @@ const PostLink = ({ title }) => (
 
 PostLink.propTypes = {
   title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default () => (
@@ -21,9 +22,9 @@ export default () => (
       <div>
         <h1>My Blog</h1>
         <ul>
-          <PostLink title="Hello Next.js" />
-          <PostLink title="Learn Next.js is great" />
-          <PostLink title="Deploy apps with next" />
+          <PostLink id="hello-nextjs" title="Hello Next.js" />
+          <PostLink id="learn-nextjs" title="Learn Next.js is great" />
+          <PostLink id="deploy-nextjs" title="Deploy apps with next" />
         </ul>
       </div>
     </Layout>
