@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import Header from './Header';
+import '../css/style.css';
 
 const layoutStyle = {
-  margin: 20,
-  padding: 20,
+  padding: 40,
   border: '1px solid #DDD',
   backgroundColor: 'rgb(238, 197, 230)',
 };
