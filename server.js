@@ -3,6 +3,7 @@ const express = require('express');
 const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
+console.log(dev ? 'In dev mode' : 'In production mode');
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
@@ -19,9 +20,9 @@ app
 
     server.get('*', (req, res) => handle(req, res));
 
-    server.listen(3000, (err) => {
+    server.listen(8080, (err) => {
       if (err) throw err;
-      console.log('> listening on port 3000...');
+      console.log('> listening on port 8080...');
     });
   })
   .catch((ex) => {
